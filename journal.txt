@@ -1,0 +1,18 @@
+
+Day 1.
+I want to cry even though i haven't even written a single line of code.
+I understand that i need a parser and a lexer, but i am still not sure what is the difference.
+I understand the codegen, it generate code.
+I understand the tokenizer and the abstract syntax tree, i think.
+I have way too may tabs open in my web browser, some that i think i will abandon because of the simplicity and the "produit minimum viable" that is too small in my opinion. If i need to return to it, i will, but for now, i will try to do it all in a big swoop and see at the end if i made a mistake.
+I will sleep and get back to it tomorrow, i wrote a enum for the lexer, but i still have no idea of what i am doing.
+
+Day 2.
+I shifted to begin with 1 + 1 for the lexer, i think i have a pretty good idea of what a lexer is.
+Everything is read from stdin and written to stdout, for now, i think i won't play with files a lot, i will try to keep it as easy and simple as i can.
+There is the lexer.h with the enum, the lexer.c with the switch, the main.c that has everything else from input to output.
+It is the first time i play with c, i didn't know it was so limited compared to java, i am implementing a lot of things that i wish existed. I am almost thinking of going to java to write the compiler, but i want to learn, and i can switch anytime, and it should be fast to switch.
+I think i finished, in the main.c, the lexer, or at least a proof of concept, to do the "1+1". It should be pushed near 15/05/2025.
+
+
+

@@ -1,0 +1,29 @@
+
+Day 1.
+I think this is the best rewatch for me https://www.youtube.com/watch?v=UW8LgC-S_co
+w3school because i still don't know c.
+Tsoding Military grade lexar https://www.youtube.com/watch?v=AqyZztKlSGQ
+https://norasandler.com/2017/11/29/Write-a-Compiler.html
+https://www.wilfred.me.uk/blog/2014/08/27/baby-steps-to-a-c-compiler/
+https://github.com/Wilfred/babyc
+https://gist.github.com/codebrainz/2933703
+https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf
+https://softwareengineering.stackexchange.com/questions/165543/how-to-write-a-very-basic-compiler
+gcc docs
+https://craftinginterpreters.com/
+llvm
+https://dev.to/lefebvre/compilers-101---overview-and-lexer-3i0m
+https://homepages.dcc.ufmg.br/~fernando/classes/dcc053/TalkingCompilersWithGPT.pdf
+https://medium.com/@kitkat1/creating-a-lexer-c7cdc7c7a0d6
+https://quinn.io/2021/11-20-compiler-lexer/
+http://scheme2006.cs.uchicago.edu/11-ghuloum.pdf
+https://github.com/nlsandler/nqcc
+https://github.com/nlsandler/write_a_c_compiler
+https://drawings.jvns.ca/
+bison/flex
+
+Day 2.
+short video https://www.youtube.com/watch?v=UW8LgC-S_co
+very very long serie https://www.youtube.com/watch?v=-4RmhDy0A2s&list=PLRnI_2_ZWhtA_ZAzEa8uJF8wgGF0HjjEz
+
+
