@@ -1,7 +1,7 @@
 #ifndef LEXER_H
 #define LEXER_H
 
-enum TOKEN {
+enum Token {
 	END_OF_FILE = 0,
 	INT_KEYWORD,
 	MAIN_KEYWORD,
