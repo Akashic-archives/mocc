@@ -8,7 +8,7 @@ int main(){
 	char code[100];
 	int code_size = 0;
 
-	enum Token tokens[128];
+	struct Token tokens[128];
 	int tokens_size = 0;
 
 	while(1) {

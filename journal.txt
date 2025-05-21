@@ -14,5 +14,9 @@ There is the lexer.h with the enum, the lexer.c with the switch, the main.c that
 It is the first time i play with c, i didn't know it was so limited compared to java, i am implementing a lot of things that i wish existed. I am almost thinking of going to java to write the compiler, but i want to learn, and i can switch anytime, and it should be fast to switch.
 I think i finished, in the main.c, the lexer, or at least a proof of concept, to do the "1+1". It should be pushed near 15/05/2025.
 
+Day 3.
+I wrote a lot of things in c, my code doesn't compile, i create a struct.
+I changed to java, i think it will be easier for me to create something that will work, that i will then try to write to c.
+Still haven't read this: https://craftinginterpreters.com/scanning.html, but i will continue from here.
 
 

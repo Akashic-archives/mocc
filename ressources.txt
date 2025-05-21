@@ -26,4 +26,9 @@ Day 2.
 short video https://www.youtube.com/watch?v=UW8LgC-S_co
 very very long serie https://www.youtube.com/watch?v=-4RmhDy0A2s&list=PLRnI_2_ZWhtA_ZAzEa8uJF8wgGF0HjjEz
 
+Day 3.
+https://qb64.com/ compiler for basic
+https://interpreterbook.com/
+https://compilerbook.com/
+
 

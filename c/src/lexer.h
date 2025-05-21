@@ -1,7 +1,7 @@
 #ifndef LEXER_H
 #define LEXER_H
 
-enum Token {
+enum TokenType {
 	END_OF_FILE = 0,
 	INT_KEYWORD,
 	MAIN_KEYWORD,
@@ -12,6 +12,11 @@ enum Token {
 	RETURN_KEYWORD,
 	NUMBER,
 	SEMICOLON
+};
+
+struct Token {
+	enum TokenType token;
+	char value[128];
 };
 
 #endif

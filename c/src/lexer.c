@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-enum Token lexerer(char code[], enum Token* tokens, int* tokens_size) {
+void lexerer(char code[], struct Token* tokens, int* tokens_size) {
 	
 	for (int i = 0; i < strlen(code) - 1; i++) {
 		switch (code[i]) {
