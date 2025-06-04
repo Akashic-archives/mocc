@@ -19,4 +19,6 @@ I wrote a lot of things in c, my code doesn't compile, i create a struct.
 I changed to java, i think it will be easier for me to create something that will work, that i will then try to write to c.
 Still haven't read this: https://craftinginterpreters.com/scanning.html, but i will continue from here.
 
+Day 4.
+A brainfuck interpreter in java
 

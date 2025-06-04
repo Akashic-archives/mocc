@@ -30,5 +30,8 @@ Day 3.
 https://qb64.com/ compiler for basic
 https://interpreterbook.com/
 https://compilerbook.com/
+https://web.archive.org/web/20241011020236/https://able.bio/kerrishotts/building-a-basic-interpreter-80s-style--79a9d703
 
+Day 4.
+https://esolangs.org/wiki/Brainfuck
 
