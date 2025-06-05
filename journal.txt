@@ -25,5 +25,8 @@ A brainfuck interpreter in java.
 Day 5.
 the big picture of the brainfuck interpreter into the main java compiler, that will have an option to interpret that i will do first.
 
+Day 6.
+implemented comma in brainfuck.
+worked a bit on java compiler to have more tokens and have more methods
 
 

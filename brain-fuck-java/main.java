@@ -14,7 +14,6 @@ public class Main{
     //ast = parser(lex);
     interpreter(tokens);
     //codeGen(ast);
-    //System.out.println(lex);
     System.out.println();
   }
 
@@ -47,8 +46,9 @@ public class Main{
         System.out.print((char) memory[index]);
         programCounter++;
       }
-      else if (tokens[programCounter] == Token.COMMA) { // TODO: implement comma
-        System.out.println("Not implemented yet, please be normal.");
+      else if (tokens[programCounter] == Token.COMMA) {
+        Scanner sc = new Scanner(System.in);
+        memory[index] = (int) sc.nextByte();
         programCounter++;
       }
       else if (tokens[programCounter] == Token.LEFT_BRACKET) {
