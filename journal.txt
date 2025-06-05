@@ -20,5 +20,10 @@ I changed to java, i think it will be easier for me to create something that wil
 Still haven't read this: https://craftinginterpreters.com/scanning.html, but i will continue from here.
 
 Day 4.
-A brainfuck interpreter in java
+A brainfuck interpreter in java.
+
+Day 5.
+the big picture of the brainfuck interpreter into the main java compiler, that will have an option to interpret that i will do first.
+
+
 
