@@ -7,23 +7,25 @@
  *
  */
 
-package mocc.java;
+package mocc.calculator;
 
 import java.util.Scanner;
 
 public class Main{
 	public static void main(String[] args){
+    Scanner sc = new Scanner(System.in);
+    Token[] tokens = new Token[1];
     System.out.println("If you want to exit, enter \"exit\".");
-    while (1) {
+    while (true) {
       String line = sc.nextLine();
       if (line.equals("exit")) {
         break;
       }
-      Token[] tokens = lexer(line);
+      tokens = lexer(line);
+      interpreter(tokens);
     }
     //ast = parser(lex);
-    interpreter(tokens);
-    System.out.println();
+    //interpreter(tokens);
   }
 
 
@@ -31,18 +33,31 @@ public class Main{
 
 
   public static void interpreter(Token[] tokens) {
+    float result = tokens[0].getValue();
+    for (int i = 0; i < tokens.length; i++) {
+      if (tokens[i].getType() == Token.TokenType.PLUS) {
+        result = result + tokens[i+1].getValue();
+        System.out.println(tokens[i+1].getValue());
+        i++;
+      } else if (tokens[i].getType() == Token.TokenType.MINUS) {
+        result = result - tokens[i+1].getValue();
+        System.out.println(tokens[i+1].getValue());
+        i++;
+      }
+    }
+    System.out.println(result);
   }
 
   public static int findMachingRightParenthesis(Token[] tokens, int programCounter) {
     int parenthesisOpen = 0;
     for (int i = programCounter + 1; i < tokens.length; i++) {
-      if (tokens[i] == TokenType.RIGHT_PARENTHESIS && parenthesisOpen == 0) {
+      if (tokens[i].getType() == Token.TokenType.RIGHT_PARENTHESIS && parenthesisOpen == 0) {
         return i;
       }
-      else if (tokens[i] == TokenType.LEFT_PARENTHESIS) {
+      else if (tokens[i].getType() == Token.TokenType.LEFT_PARENTHESIS) {
         parenthesisOpen++;
       }
-      else if (tokens[i] == TokenType.RIGHT_PARENTHESIS && parenthesisOpen != 0) { // != 0 for bug
+      else if (tokens[i].getType() == Token.TokenType.RIGHT_PARENTHESIS && parenthesisOpen != 0) { // != 0 for bug
         parenthesisOpen--;
       }
     }
@@ -54,13 +69,13 @@ public class Main{
   public static int findMachingLeftParenthesis(Token[] tokens, int programCounter) {
     int parenthesisOpen = -1;
     for (int i = programCounter; i < tokens.length - 1; i--) {
-      if (tokens[i] == TokenType.LEFT_PARENTHESIS && parenthesisOpen == 0) {
+      if (tokens[i].getType() == Token.TokenType.LEFT_PARENTHESIS && parenthesisOpen == 0) {
         return i;
       }
-      else if (tokens[i] == TokenType.RIGHT_PARENTHESIS) {
+      else if (tokens[i].getType() == Token.TokenType.RIGHT_PARENTHESIS) {
         parenthesisOpen++;
       }
-      else if (tokens[i] == TokenType.LEFT_PARENTHESIS && parenthesisOpen != 0) {
+      else if (tokens[i].getType() == Token.TokenType.LEFT_PARENTHESIS && parenthesisOpen != 0) {
         parenthesisOpen--;
       }
     }
@@ -72,18 +87,6 @@ public class Main{
 
 
 	// TOKEN/LEXER SECTION
-	enum TokenType {
-    NUMBER,
-    PLUS,
-    MINUS,
-    TIME,
-    DIVIDE,
-    POINT,
-    COMMA,
-    RIGHT_PARENTHESIS,
-    LEFT_PARENTHESIS,
-    EQUALS
-	}
 
   public static Token[] lexer(String lex) {
     // int nbreTokens = countTokens(lex);
@@ -92,27 +95,32 @@ public class Main{
     for (int i = 0; i < lex.length(); i++) {
       // TODO: find token and put it in tokens
       if (lex.charAt(i) == '+') {
-        tokens[tokenCounter] = new Token(TokenType.PLUS, 0);
+        tokens[tokenCounter] = new Token(Token.TokenType.PLUS, 0);
         tokenCounter++;
       } else if (lex.charAt(i) == '-') {
-        tokens[tokenCounter] = new Token(TokenType.MINUS, 0);
+        tokens[tokenCounter] = new Token(Token.TokenType.MINUS, 0);
         tokenCounter++;
       } else if (Character.isDigit(lex.charAt(i))) {
-        System.out.println("matched a digit");
+        tokens[tokenCounter] = new Token(Token.TokenType.NUMBER, Float.parseFloat("" + lex.charAt(i)));
+        tokenCounter++;
       }
     }
-    return tokens;
+    Token[] tokensLength = new Token[tokenCounter]; // TODO: remove this and make the array dynamic
+    for (int i = 0; i < tokenCounter; i++) {
+      tokensLength[i] = tokens[i];
+    }
+    return tokensLength;
   }
 
-  public static Token tokeniseChar(char ch) {
+  public static Token.TokenType tokeniseChar(char ch) {
     if (ch == '-') {
-      return TokenType.MINUS;
+      return Token.TokenType.MINUS;
     }  
     else {
         System.err.println("Error with the tokens, probably bad sanitization");
         System.exit(1);
       }
-      return TokenType.MINUS;
+      return Token.TokenType.MINUS;
   }
 
   public static int countTokens(String lex) {
