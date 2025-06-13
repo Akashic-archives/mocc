@@ -37,11 +37,15 @@ public class Main{
     for (int i = 0; i < tokens.length; i++) {
       if (tokens[i].getType() == Token.TokenType.PLUS) {
         result = result + tokens[i+1].getValue();
-        System.out.println(tokens[i+1].getValue());
         i++;
       } else if (tokens[i].getType() == Token.TokenType.MINUS) {
         result = result - tokens[i+1].getValue();
-        System.out.println(tokens[i+1].getValue());
+        i++;
+      } else if (tokens[i].getType() == Token.TokenType.MULTIPLY) {
+        result = result * tokens[i+1].getValue();
+        i++;
+      } else if (tokens[i].getType() == Token.TokenType.DIVIDE) {
+        result = result - tokens[i+1].getValue();
         i++;
       }
     }
@@ -101,8 +105,13 @@ public class Main{
         tokens[tokenCounter] = new Token(Token.TokenType.MINUS, 0);
         tokenCounter++;
       } else if (Character.isDigit(lex.charAt(i))) {
-        tokens[tokenCounter] = new Token(Token.TokenType.NUMBER, Float.parseFloat("" + lex.charAt(i)));
+        int longeur = 1;
+        while (Character.isDigit(lex.charAt(i+longeur))) {
+          longeur++;
+        }
+        tokens[tokenCounter] = new Token(Token.TokenType.NUMBER, Float.parseFloat("" + lex.substring(i, i + longeur)));
         tokenCounter++;
+        i = i + longeur - 1;
       }
     }
     Token[] tokensLength = new Token[tokenCounter]; // TODO: remove this and make the array dynamic

@@ -21,7 +21,7 @@ public class Token {
     NUMBER,
     PLUS,
     MINUS,
-    TIME,
+    MULTIPLY,
     DIVIDE,
     POINT,
     COMMA,
