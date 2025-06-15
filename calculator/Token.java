@@ -23,6 +23,7 @@ public class Token {
     MINUS,
     MULTIPLY,
     DIVIDE,
+    POWER,
     POINT,
     COMMA,
     RIGHT_PARENTHESIS,
