@@ -29,4 +29,8 @@ Day 6.
 implemented comma in brainfuck.
 worked a bit on java compiler to have more tokens and have more methods
 
+Day 7.
+began a calculator to understand ast (abstract syntax tree), stopped after i reached them, for now i could do plus and minus, but my calculator broke between two commits.
+
+
 
