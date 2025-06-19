@@ -1,4 +1,4 @@
-package mocc.calculator;
+package calculator;
 
 public class Token {
   private TokenType type;

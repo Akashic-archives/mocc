@@ -7,7 +7,7 @@
  *
  */
 
-package mocc.calculator;
+package calculator;
 
 import java.util.Scanner;
 
@@ -106,7 +106,7 @@ public class Main{
         tokenCounter++;
       } else if (Character.isDigit(lex.charAt(i))) {
         int longeur = 1;
-        while (Character.isDigit(lex.charAt(i+longeur))) {
+        while (i + longeur < lex.length() && Character.isDigit(lex.charAt(i+longeur))) {
           longeur++;
         }
         tokens[tokenCounter] = new Token(Token.TokenType.NUMBER, Float.parseFloat("" + lex.substring(i, i + longeur)));
