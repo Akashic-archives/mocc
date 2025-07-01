@@ -45,7 +45,7 @@ public class Main{
         result = result * tokens[i+1].getValue();
         i++;
       } else if (tokens[i].getType() == Token.TokenType.DIVIDE) {
-        result = result - tokens[i+1].getValue();
+        result = result / tokens[i+1].getValue();
         i++;
       }
     }
