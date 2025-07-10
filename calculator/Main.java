@@ -112,6 +112,12 @@ public class Main{
         tokens[tokenCounter] = new Token(Token.TokenType.NUMBER, Float.parseFloat("" + lex.substring(i, i + longeur)));
         tokenCounter++;
         i = i + longeur - 1;
+      } else if (lex.charAt(i) == '*') {
+        tokens[tokenCounter] = new Token(Token.TokenType.MULTIPLY, 0);
+        tokenCounter++;
+      } else if (lex.charAt(i) == '/') {
+        tokens[tokenCounter] = new Token(Token.TokenType.DIVIDE, 0);
+        tokenCounter++;
       }
     }
     Token[] tokensLength = new Token[tokenCounter]; // TODO: remove this and make the array dynamic
