@@ -32,5 +32,6 @@ worked a bit on java compiler to have more tokens and have more methods
 Day 7.
 began a calculator to understand ast (abstract syntax tree), stopped after i reached them, for now i could do plus and minus, but my calculator broke between two commits.
 
-
+Day 8.
+the calculator works, i added the multiplication and the division, and i am creating an ast and the parser.
 

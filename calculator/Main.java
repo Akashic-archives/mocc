@@ -1,9 +1,12 @@
 /*
  *
  * A calculator that takes in stdin math and calculates it.
- *
+ * 
+ * priority of operation
  * try to evaluate if an expression is true or false.
  * multi-line expressions soon possible because of variables and semicolon.
+ *
+ * PS: i will improve the memory, for now i abuse the fact that i have 16 Gb of ram
  *
  */
 
@@ -22,14 +25,22 @@ public class Main{
         break;
       }
       tokens = lexer(line);
-      interpreter(tokens);
+      //interpreter(tokens);
+      Ast.Node ast = parser(tokens);
     }
-    //ast = parser(lex);
-    //interpreter(tokens);
   }
 
 
 
+  public static Ast parser(Token[] tokens) {
+    /*
+     * TODO: the parser needs to return an ast with priority of operation first.
+     * also the parenthesis later.
+     *
+     * TODO: the interpreter needs to be rewritten to accomodate an ast.
+     *
+     */
+  }
 
 
   public static void interpreter(Token[] tokens) {
