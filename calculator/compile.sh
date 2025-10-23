@@ -1,4 +1,4 @@
 #!/bin/bash
 
-javac -d . Main.java Token.java
+javac -d . Main.java Ast.java Token.java
 

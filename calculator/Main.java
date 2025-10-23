@@ -26,13 +26,13 @@ public class Main{
       }
       tokens = lexer(line);
       //interpreter(tokens);
-      Ast.Node ast = parser(tokens);
+      Node ast = parser(tokens);
     }
   }
 
 
 
-  public static Ast parser(Token[] tokens) {
+  public static Node parser(Token[] tokens) {
     /*
      * TODO: the parser needs to return an ast with priority of operation first.
      * also the parenthesis later.
@@ -40,6 +40,9 @@ public class Main{
      * TODO: the interpreter needs to be rewritten to accomodate an ast.
      *
      */
+    Node ast = new Node(tokens[0]);
+
+    return ast;
   }
 
 
