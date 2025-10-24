@@ -27,6 +27,7 @@ public class Main{
       tokens = lexer(line);
       //interpreter(tokens);
       Node ast = parser(tokens);
+      //interpreterForAst(ast);
     }
   }
 
@@ -40,7 +41,33 @@ public class Main{
      * TODO: the interpreter needs to be rewritten to accomodate an ast.
      *
      */
-    Node ast = new Node(tokens[0]);
+    Node ast = new Node(tokens[1]);
+    ast.addLeft(tokens[0]);
+    ast.addRight([2]);
+
+
+    for (int i = 3; i < tokens.length; i++) {
+      if () {
+        
+      }
+    }
+
+    /* if higherPriority, put above
+     * if lowerPriority, put below
+     * i++
+     *
+     * for the interpreter, top to bottom, so 5+2*4-3 is
+     * *
+     * |\
+     * 4 +
+     *  / \
+     * 5   2
+     *    / \
+     *   3   -
+     * 
+     *
+     */
+
 
     return ast;
   }
