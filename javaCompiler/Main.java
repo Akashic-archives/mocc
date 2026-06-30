@@ -156,6 +156,7 @@ public class Main{
     }
 
     public static void printAST(Node head) {
+      System.out.println("AST:");
       while (head.getNextNode() != null) {
         System.out.println(head.getToken().getTokenType());
         head = head.getNextNode();
