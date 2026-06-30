@@ -101,11 +101,107 @@ public class Main{
     // AST
 
     public static Node parser(ArrayList<Token> tokens) {
-      Node head;
+      Node main = new Node(tokens.get(0));
+      ArrayList<Node> functions = new ArrayList<>();
+      /* ast main() always called first
+       * ArrayList<ast> fuctions plugged in the main and themselves
+       */
+      // function = return name args firstToken lastToken
+      // each line is a head and operations, and ill just link them in the function
+
+      for (int i = 0; i < tokens.size(); i++) {
+        if (!isKeyword(tokens.get(i)) && tokens.get(i).getTokenType() == Token.TokenType.NAME) {
+          String functionName = tokens.get(i).getValue();
+          int firstLeftBracket = findFirstLeftBracket(tokens, i);
+          int matchingRightBracket = findMatchingRightBracket(tokens, firstLeftBracket);
+          Node function = new FunctionNode(tokens.get(i), functionName, firstLeftBracket, matchingRightBracket);
+          functions.add(function);
+          i = matchingRightBracket + 1;
+          System.out.println(i);
+          System.out.println(matchingRightBracket);
+          System.out.println(isKeyword(tokens.get(i)));
+        }
+      }
+
+      for (int i = 0; i < functions.size(); i++) {
+        if (functions.get(i).getToken().getValue().equals("main")) {
+          main = functions.get(i);
+        }
+      }
 
 
+      for (int i = 0; i < tokens.size(); i++) { //TODO: for all functions this to get return
+        if (tokens.get(i).getValue().equals("return")) {
+          main.setNextNode(new Node(tokens.get(i))); // TODO: new "main" for this function
+          Node currentNode = main.getNextNode();
+          while (currentNode.getToken().getTokenType() != Token.TokenType.SEMICOLON) {
+            currentNode.setNextNode(new Node(tokens.get(i+1)));
+            currentNode = currentNode.getNextNode();
+            i += 1;
+          }
+          i = tokens.size();
+        }
+      }
 
-      return head;
+      /*
+       * arraylist Nodes divideToLignes(start end)
+       * findReturnLigne
+       * head.addNextNode return
+       * return.addStatement all tokens between return and ;
+       */
+
+      printAST(main);
+
+      return main;
+    }
+
+    public static void printAST(Node head) {
+      while (head.getNextNode() != null) {
+        System.out.println(head.getToken().getTokenType());
+        head = head.getNextNode();
+      }
+    }
+
+    public static int findFirstLeftBracket(ArrayList<Token> tokens, int namePosition) {
+      for (int i = namePosition + 1; i < tokens.size(); i++) {
+        if (tokens.get(i).getTokenType() == Token.TokenType.LEFT_PARENTHESIS) {
+          return i;
+        }
+      }
+      return 0;
+    }
+
+    public static int findMatchingRightBracket(ArrayList<Token> tokens, int leftBracketPosition) {
+    int bracketsOpen = 0;
+    int rightBracketPosition = 0;
+    for (int i = leftBracketPosition + 1; i < tokens.size(); i++) {
+      if (tokens.get(i).getTokenType() == Token.TokenType.RIGHT_BRACKET && bracketsOpen == 0) {
+        return i;
+      }
+      else if (tokens.get(i).getTokenType() == Token.TokenType.LEFT_BRACKET) {
+        bracketsOpen++;
+      }
+      else if (tokens.get(i).getTokenType() == Token.TokenType.RIGHT_BRACKET && bracketsOpen != 0) {
+        bracketsOpen--;
+      }
+    }
+    return rightBracketPosition;
+  }
+
+
+    public static boolean isKeyword(Token token) {
+      String keyword = token.getValue();
+      return keyword.equals("auto") || keyword.equals("break") || keyword.equals("case") ||
+        keyword.equals("char") || keyword.equals("const") || keyword.equals("continue") ||
+        keyword.equals("default") || keyword.equals("do") || keyword.equals("double") ||
+        keyword.equals("else") || keyword.equals("enum") || keyword.equals("extern") ||
+        keyword.equals("float") || keyword.equals("for") || keyword.equals("goto") ||
+        keyword.equals("if") || keyword.equals("int") || keyword.equals("long") ||
+        keyword.equals("register") || keyword.equals("return") || keyword.equals("short") ||
+        keyword.equals("signed") || keyword.equals("sizeof") || keyword.equals("static") ||
+        keyword.equals("struct") || keyword.equals("switch") || keyword.equals("typedef") ||
+        keyword.equals("union") || keyword.equals("unsigned") || keyword.equals("void") ||
+        keyword.equals("volatile") || keyword.equals("while");
     }
 
     // FILE HANDLING SECTION

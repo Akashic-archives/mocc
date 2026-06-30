@@ -1,29 +1,27 @@
 package javaCompiler;
 
-public class Node {
+public class LineNode extends Node {
   private Token token;
+  private Node nextLine;
   private Node nextNode;
-  private int position;
- 
-  public Node() {}
-  public Node(Token token) {
+  
+  public LineNode(Token token) {
     this.token = token;
-  }
-  public Node(Token token, int position) {
-    this.token = token;
-    this.position = position;
   }
 
   public Token getToken() {
     return token;
   }
+  public Node getNextLine() {
+    return nextLine;
+  }
   public Node getNextNode() {
     return nextNode;
   }
-  public int getPosition() {
-    return position;
-  }
 
+  public void setNextLine(Node nextLine) {
+    this.nextLine = nextLine;
+  }
   public void setNextNode(Node nextNode) {
     this.nextNode = nextNode;
   }
