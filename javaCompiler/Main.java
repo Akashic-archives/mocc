@@ -52,7 +52,11 @@ public class Main{
           s = s + "" + lex.get(0).charValue();
           lex.remove(0);
         } while (isAlpha(lex.get(0).charValue()));
-        tokens.add(new Token(Token.TokenType.NAME, s));
+        if (isKeywordToken(s)) {
+          tokens.add(new Token(tokeniseKeyword(s)));
+        } else {
+          tokens.add(new Token(Token.TokenType.NAME, s)); // TODO: revisite
+        }
       } else if (isAlphaNum(lex.get(0).charValue())) {
         String s = "";
         do {
@@ -69,6 +73,76 @@ public class Main{
     return tokens;
   }
 
+
+  public static Token.TokenType tokeniseKeyword(String s) {
+    if (s.equals("auto")) {
+      return Token.TokenType.AUTO;
+    } else if (s.equals("break")) {
+      return Token.TokenType.BREAK;
+    } else if (s.equals("case")) {
+      return Token.TokenType.CASE;
+    } else if (s.equals("char")) {
+      return Token.TokenType.CHAR;
+    } else if (s.equals("const")) {
+      return Token.TokenType.CONST;
+    } else if (s.equals("continue")) {
+      return Token.TokenType.CONTINUE;
+    } else if (s.equals("default")) {
+      return Token.TokenType.DEFAULT;
+    } else if (s.equals("do")) {
+      return Token.TokenType.DO;
+    } else if (s.equals("double")) {
+      return Token.TokenType.DOUBLE;
+    } else if (s.equals("else")) {
+      return Token.TokenType.ELSE;
+    } else if (s.equals("enum")) {
+      return Token.TokenType.ENUM;
+    } else if (s.equals("extern")) {
+      return Token.TokenType.EXTERN;
+    } else if (s.equals("float")) {
+      return Token.TokenType.FLOAT;
+    } else if (s.equals("for")) {
+      return Token.TokenType.FOR;
+    } else if (s.equals("goto")) {
+      return Token.TokenType.GOTO;
+    } else if (s.equals("if")) {
+      return Token.TokenType.IF;
+    } else if (s.equals("int")) {
+      return Token.TokenType.INT;
+    } else if (s.equals("long")) {
+      return Token.TokenType.LONG;
+    } else if (s.equals("register")) {
+      return Token.TokenType.REGISTER;
+    } else if (s.equals("return")) {
+      return Token.TokenType.RETURN;
+    } else if (s.equals("short")) {
+      return Token.TokenType.SHORT;
+    } else if (s.equals("signed")) {
+      return Token.TokenType.SIGNED;
+    } else if (s.equals("sizeof")) {
+      return Token.TokenType.SIZEOF;
+    } else if (s.equals("static")) {
+      return Token.TokenType.STATIC;
+    } else if (s.equals("struct")) {
+      return Token.TokenType.STRUCT;
+    } else if (s.equals("switch")) {
+      return Token.TokenType.SWITCH;
+    } else if (s.equals("typedef")) {
+      return Token.TokenType.TYPEDEF;
+    } else if (s.equals("union")) {
+      return Token.TokenType.UNION;
+    } else if (s.equals("unsigned")) {
+      return Token.TokenType.UNSIGNED;
+    } else if (s.equals("void")) {
+      return Token.TokenType.VOID;
+    } else if (s.equals("volatile")) {
+      return Token.TokenType.VOLATILE;
+    } else if (s.equals("while")) {
+      return Token.TokenType.WHILE;
+    } else {
+      return Token.TokenType.INT;
+    }
+  }
 
     public static Token.TokenType tokeniseChar(char ch) {
       if (ch == ';') {
@@ -87,6 +161,20 @@ public class Main{
 
     public static boolean isBaseToken(char ch) {
       return (ch == ';' || ch == '{' || ch == '}' || ch == '(' || ch == ')');
+    }
+
+    public static boolean isKeywordToken(String s) {
+      return s.equals("auto") || s.equals("break") || s.equals("case") ||
+        s.equals("char") || s.equals("const") || s.equals("continue") ||
+        s.equals("default") || s.equals("do") || s.equals("double") ||
+        s.equals("else") || s.equals("enum") || s.equals("extern") ||
+        s.equals("float") || s.equals("for") || s.equals("goto") ||
+        s.equals("if") || s.equals("int") || s.equals("long") ||
+        s.equals("register") || s.equals("return") || s.equals("short") ||
+        s.equals("signed") || s.equals("sizeof") || s.equals("static") ||
+        s.equals("struct") || s.equals("switch") || s.equals("typedef") ||
+        s.equals("union") || s.equals("unsigned") || s.equals("void") ||
+        s.equals("volatile") || s.equals("while");
     }
 
     public static boolean isAlpha(char ch) {
@@ -117,9 +205,6 @@ public class Main{
           Node function = new FunctionNode(tokens.get(i), functionName, firstLeftBracket, matchingRightBracket);
           functions.add(function);
           i = matchingRightBracket + 1;
-          System.out.println(i);
-          System.out.println(matchingRightBracket);
-          System.out.println(isKeyword(tokens.get(i)));
         }
       }
 
