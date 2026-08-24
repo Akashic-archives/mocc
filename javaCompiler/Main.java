@@ -189,8 +189,42 @@ public class Main{
     // AST
 
     public static Node parser(ArrayList<Token> tokens) {
-      Node main = new Node(tokens.get(0));
-      ArrayList<Node> functions = new ArrayList<>();
+      ArrayList<FunctionNode> functions = new ArrayList<>();
+      FunctionNode main = new FunctionNode(tokens.get(1)); // TODO: search for the main and put it here, for now its manually the second token
+      
+      for (int i = 0; i < tokens.size(); i++) {
+        if (isReturnType(tokens[i]) && !isKeywordToken(tokens[i]) && *FIND PARENTHESIS AND BRACKETS*) { // TODO: implement isReturnType and check isKeyword or isKeywordToken and pseudo-code to code
+        functions.add(new FunctionNode(name, return_type, parameters[], central-code)) // l'idee c'est de prendre central-code et de le transformer en lignes avec les ;
+        }
+      }
+
+      for (int i = 0; i < functions.size(); i++) {
+        
+      }
+      while going through functions
+        create an arraylist of lines with head nodes
+        link them to the function nodes
+
+      find and replace functions in functions
+
+      return main_func
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       /* ast main() always called first
        * ArrayList<ast> fuctions plugged in the main and themselves
        */
