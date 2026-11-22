@@ -190,96 +190,27 @@ public class Main{
 
     public static Node parser(ArrayList<Token> tokens) {
       ArrayList<FunctionNode> functions = new ArrayList<>();
-      FunctionNode main = new FunctionNode(tokens.get(1)); // TODO: search for the main and put it here, for now its manually the second token
+      FunctionNode main = new FunctionNode(tokens.get(1)); // TODO: search for the main and put it here, for now its manually the second token and add the args and place
       
-      for (int i = 0; i < tokens.size(); i++) {
-        if (isReturnType(tokens[i]) && !isKeywordToken(tokens[i]) && *FIND PARENTHESIS AND BRACKETS*) { // TODO: implement isReturnType and check isKeyword or isKeywordToken and pseudo-code to code
-        functions.add(new FunctionNode(name, return_type, parameters[], central-code)) // l'idee c'est de prendre central-code et de le transformer en lignes avec les ;
-        }
-      }
+      LineNode lineNode = new LineNode();
+      lineNode.setNextNode(new Node(tokens.get(5)));
+      lineNode.setNextNode(new Node(tokens.get(6)));
+      // l'idee c'est de prendre central-code et de le transformer en lignes avec les ;
 
-      for (int i = 0; i < functions.size(); i++) {
-        
-      }
-      while going through functions
-        create an arraylist of lines with head nodes
-        link them to the function nodes
-
-      find and replace functions in functions
-
-      return main_func
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      /* ast main() always called first
-       * ArrayList<ast> fuctions plugged in the main and themselves
-       */
       // function = return name args firstToken lastToken
-      // each line is a head and operations, and ill just link them in the function
 
-      for (int i = 0; i < tokens.size(); i++) {
-        if (!isKeyword(tokens.get(i)) && tokens.get(i).getTokenType() == Token.TokenType.NAME) {
-          String functionName = tokens.get(i).getValue();
-          int firstLeftBracket = findFirstLeftBracket(tokens, i);
-          int matchingRightBracket = findMatchingRightBracket(tokens, firstLeftBracket);
-          Node function = new FunctionNode(tokens.get(i), functionName, firstLeftBracket, matchingRightBracket);
-          functions.add(function);
-          i = matchingRightBracket + 1;
-        }
-      }
-
-      for (int i = 0; i < functions.size(); i++) {
-        if (functions.get(i).getToken().getValue().equals("main")) {
-          main = functions.get(i);
-        }
-      }
-
-
-      for (int i = 0; i < tokens.size(); i++) { //TODO: for all functions this to get return
-        if (tokens.get(i).getValue().equals("return")) {
-          main.setNextNode(new Node(tokens.get(i))); // TODO: new "main" for this function
-          Node currentNode = main.getNextNode();
-          while (currentNode.getToken().getTokenType() != Token.TokenType.SEMICOLON) {
-            currentNode.setNextNode(new Node(tokens.get(i+1)));
-            currentNode = currentNode.getNextNode();
-            i += 1;
-          }
-          i = tokens.size();
-        }
-      }
-
-      /*
-       * arraylist Nodes divideToLignes(start end)
-       * findReturnLigne
-       * head.addNextNode return
-       * return.addStatement all tokens between return and ;
-       */
+      main.setNextLineNode(lineNode);
 
       printAST(main);
-
       return main;
     }
 
     public static void printAST(Node head) {
       System.out.println("AST:");
-      while (head.getNextNode() != null) {
+      /*while (head.getNextNode() != null) {
         System.out.println(head.getToken().getTokenType());
         head = head.getNextNode();
-      }
+      }*/
     }
 
     public static int findFirstLeftBracket(ArrayList<Token> tokens, int namePosition) {
