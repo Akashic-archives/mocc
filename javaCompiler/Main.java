@@ -6,7 +6,9 @@
 package javaCompiler;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -283,12 +285,22 @@ public class Main{
     }
     return lexArrayList;
   }
+  public static void writeFile(String str) {
+    try {
+      FileWriter fw = new FileWriter("a.s");
+      fw.write(str);
+      fw.close();
+    } catch (IOException e) {
+      System.out.println(e);
+    }
+  }
 
   // CODE GEN SECTION
 
   public static void codeGen(FunctionNode main) {
     System.out.println("\nCode Gen");
-    System.out.println("_main:");
+    String genCode = "";
+    genCode = genCode + ".globl _start\n_start:";
     ArrayList<LineNode> lineNodes = main.getLineNodes();
     for (LineNode lineNode : lineNodes) {
       ArrayList<Node> nodes = lineNode.getNodes();
@@ -296,13 +308,18 @@ public class Main{
         Node node = nodes.get(i);
         Token token = node.getToken();
         if (token.getTokenType() == Token.TokenType.NUMBER) {
-          System.out.println("\tmovl\t%" + token.getValue() + ", %eax");
+          genCode = genCode + "\n" + "\tmovl\t$" + token.getValue() + ", %eax";
         }
         if (token.getTokenType() == Token.TokenType.RETURN) {
-          System.out.println("\tret");
+          genCode = genCode + "\n" + "\tmovl\t%eax, %edi";
+          genCode = genCode + "\n" + "\tmovl\t$60, %eax";
+          genCode = genCode + "\n" + "\tsyscall";
         }
       }
     }
+    System.out.println(genCode);
+    genCode = genCode + "\n";
+    writeFile(genCode);
   }
 }
 
