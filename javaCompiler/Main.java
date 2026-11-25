@@ -15,9 +15,14 @@ public class Main{
       inputVerification(args);
       ArrayList<Character> lex = readFile(args);
       ArrayList<Token> tokens = lexer(lex);
-      Node ast = parser(tokens);
+      printTokens(tokens);
+      System.out.println();
+      FunctionNode ast = parser(tokens);
       //interpreter() if i feel like it
-      //codeGen(ast);
+      codeGen(ast);
+    }
+
+    public static void printTokens(ArrayList<Token> tokens) {
       for (Token token : tokens) {
         if (token.getTokenType() == Token.TokenType.NAME || token.getTokenType() == Token.TokenType.NUMBER) {
           System.out.println(token.getValue());
@@ -144,85 +149,89 @@ public class Main{
     }
   }
 
-    public static Token.TokenType tokeniseChar(char ch) {
-      if (ch == ';') {
-        return Token.TokenType.SEMICOLON;
-      } else if (ch == '{') {
-        return Token.TokenType.LEFT_BRACKET;
-      } else if (ch == '}') {
-        return Token.TokenType.RIGHT_BRACKET;
-      } else if (ch == '(') {
-        return Token.TokenType.LEFT_PARENTHESIS;
-      } else if (ch == ')') {
-        return Token.TokenType.RIGHT_PARENTHESIS;
-      }
+  public static Token.TokenType tokeniseChar(char ch) {
+    if (ch == ';') {
       return Token.TokenType.SEMICOLON;
+    } else if (ch == '{') {
+      return Token.TokenType.LEFT_BRACKET;
+    } else if (ch == '}') {
+      return Token.TokenType.RIGHT_BRACKET;
+    } else if (ch == '(') {
+      return Token.TokenType.LEFT_PARENTHESIS;
+    } else if (ch == ')') {
+      return Token.TokenType.RIGHT_PARENTHESIS;
     }
+    return Token.TokenType.SEMICOLON;
+  }
 
-    public static boolean isBaseToken(char ch) {
-      return (ch == ';' || ch == '{' || ch == '}' || ch == '(' || ch == ')');
-    }
+  public static boolean isBaseToken(char ch) {
+    return (ch == ';' || ch == '{' || ch == '}' || ch == '(' || ch == ')');
+  }
 
-    public static boolean isKeywordToken(String s) {
-      return s.equals("auto") || s.equals("break") || s.equals("case") ||
-        s.equals("char") || s.equals("const") || s.equals("continue") ||
-        s.equals("default") || s.equals("do") || s.equals("double") ||
-        s.equals("else") || s.equals("enum") || s.equals("extern") ||
-        s.equals("float") || s.equals("for") || s.equals("goto") ||
-        s.equals("if") || s.equals("int") || s.equals("long") ||
-        s.equals("register") || s.equals("return") || s.equals("short") ||
-        s.equals("signed") || s.equals("sizeof") || s.equals("static") ||
-        s.equals("struct") || s.equals("switch") || s.equals("typedef") ||
-        s.equals("union") || s.equals("unsigned") || s.equals("void") ||
-        s.equals("volatile") || s.equals("while");
-    }
+  public static boolean isKeywordToken(String s) {
+    return s.equals("auto") || s.equals("break") || s.equals("case") ||
+      s.equals("char") || s.equals("const") || s.equals("continue") ||
+      s.equals("default") || s.equals("do") || s.equals("double") ||
+      s.equals("else") || s.equals("enum") || s.equals("extern") ||
+      s.equals("float") || s.equals("for") || s.equals("goto") ||
+      s.equals("if") || s.equals("int") || s.equals("long") ||
+      s.equals("register") || s.equals("return") || s.equals("short") ||
+      s.equals("signed") || s.equals("sizeof") || s.equals("static") ||
+      s.equals("struct") || s.equals("switch") || s.equals("typedef") ||
+      s.equals("union") || s.equals("unsigned") || s.equals("void") ||
+      s.equals("volatile") || s.equals("while");
+  }
 
-    public static boolean isAlpha(char ch) {
-      return (64 < ch && ch < 91 || 96 < ch && ch < 123);
-    }
+  public static boolean isAlpha(char ch) {
+    return (64 < ch && ch < 91 || 96 < ch && ch < 123);
+  }
 
-    public static boolean isAlphaNum(char ch) {
-      return (47 < ch && ch < 58 || 64 < ch && ch < 91 || 96 < ch && ch < 123);
-    }
+  public static boolean isAlphaNum(char ch) {
+    return (47 < ch && ch < 58 || 64 < ch && ch < 91 || 96 < ch && ch < 123);
+  }
 
 
-    // AST
+  // AST
 
-    public static Node parser(ArrayList<Token> tokens) {
-      ArrayList<FunctionNode> functions = new ArrayList<>();
-      FunctionNode main = new FunctionNode(tokens.get(1)); // TODO: search for the main and put it here, for now its manually the second token and add the args and place
+  public static FunctionNode parser(ArrayList<Token> tokens) {
+    ArrayList<FunctionNode> functions = new ArrayList<>();
+    FunctionNode main = new FunctionNode(tokens.get(1)); // TODO: search for the main and put it here, for now its manually the second token and add the args and place
       
-      LineNode lineNode = new LineNode();
-      lineNode.setNextNode(new Node(tokens.get(5)));
-      lineNode.setNextNode(new Node(tokens.get(6)));
-      // l'idee c'est de prendre central-code et de le transformer en lignes avec les ;
+    LineNode lineNode = new LineNode();
+    lineNode.setNextNode(new Node(tokens.get(5)));
+    lineNode.setNextNode(new Node(tokens.get(6)));
+    // l'idee c'est de prendre central-code et de le transformer en lignes avec les ;
 
-      // function = return name args firstToken lastToken
+    // function = return name args firstToken lastToken
 
-      main.setNextLineNode(lineNode);
+    main.setNextLineNode(lineNode);
 
-      printAST(main);
-      return main;
-    }
+    printAST(main);
+    return main;
+  }
 
-    public static void printAST(Node head) {
-      System.out.println("AST:");
-      /*while (head.getNextNode() != null) {
-        System.out.println(head.getToken().getTokenType());
-        head = head.getNextNode();
-      }*/
-    }
-
-    public static int findFirstLeftBracket(ArrayList<Token> tokens, int namePosition) {
-      for (int i = namePosition + 1; i < tokens.size(); i++) {
-        if (tokens.get(i).getTokenType() == Token.TokenType.LEFT_PARENTHESIS) {
-          return i;
-        }
+  public static void printAST(FunctionNode main) {
+    System.out.println("AST:");
+    System.out.println(main.getToken().getTokenType() + " " + main.getToken().getValue());
+    ArrayList<LineNode> lineNodes = main.getLineNodes();
+    for (LineNode lineNode : lineNodes) {
+        ArrayList<Node> nodes = lineNode.getNodes();
+      for (Node node : nodes) {
+        System.out.println(node.getToken().getTokenType());
       }
-      return 0;
     }
+  }
 
-    public static int findMatchingRightBracket(ArrayList<Token> tokens, int leftBracketPosition) {
+  public static int findFirstLeftBracket(ArrayList<Token> tokens, int namePosition) {
+    for (int i = namePosition + 1; i < tokens.size(); i++) {
+      if (tokens.get(i).getTokenType() == Token.TokenType.LEFT_PARENTHESIS) {
+        return i;
+      }
+    }
+    return 0;
+  }
+
+  public static int findMatchingRightBracket(ArrayList<Token> tokens, int leftBracketPosition) {
     int bracketsOpen = 0;
     int rightBracketPosition = 0;
     for (int i = leftBracketPosition + 1; i < tokens.size(); i++) {
@@ -239,41 +248,61 @@ public class Main{
     return rightBracketPosition;
   }
 
+  public static boolean isKeyword(Token token) {
+    String keyword = token.getValue();
+    return keyword.equals("auto") || keyword.equals("break") || keyword.equals("case") ||
+      keyword.equals("char") || keyword.equals("const") || keyword.equals("continue") ||
+      keyword.equals("default") || keyword.equals("do") || keyword.equals("double") ||
+      keyword.equals("else") || keyword.equals("enum") || keyword.equals("extern") ||
+      keyword.equals("float") || keyword.equals("for") || keyword.equals("goto") ||
+      keyword.equals("if") || keyword.equals("int") || keyword.equals("long") ||
+      keyword.equals("register") || keyword.equals("return") || keyword.equals("short") ||
+      keyword.equals("signed") || keyword.equals("sizeof") || keyword.equals("static") ||
+      keyword.equals("struct") || keyword.equals("switch") || keyword.equals("typedef") ||
+      keyword.equals("union") || keyword.equals("unsigned") || keyword.equals("void") ||
+      keyword.equals("volatile") || keyword.equals("while");
+  }
 
-    public static boolean isKeyword(Token token) {
-      String keyword = token.getValue();
-      return keyword.equals("auto") || keyword.equals("break") || keyword.equals("case") ||
-        keyword.equals("char") || keyword.equals("const") || keyword.equals("continue") ||
-        keyword.equals("default") || keyword.equals("do") || keyword.equals("double") ||
-        keyword.equals("else") || keyword.equals("enum") || keyword.equals("extern") ||
-        keyword.equals("float") || keyword.equals("for") || keyword.equals("goto") ||
-        keyword.equals("if") || keyword.equals("int") || keyword.equals("long") ||
-        keyword.equals("register") || keyword.equals("return") || keyword.equals("short") ||
-        keyword.equals("signed") || keyword.equals("sizeof") || keyword.equals("static") ||
-        keyword.equals("struct") || keyword.equals("switch") || keyword.equals("typedef") ||
-        keyword.equals("union") || keyword.equals("unsigned") || keyword.equals("void") ||
-        keyword.equals("volatile") || keyword.equals("while");
+  // FILE HANDLING SECTION
+  public static ArrayList<Character> readFile(String[] args){
+    String lex = "";
+    ArrayList<Character> lexArrayList = new ArrayList<>();
+    try {
+      File file = new File(args[0]);
+      Scanner sc = new Scanner(file);
+      while (sc.hasNextLine()) {
+        lex = lex + sc.nextLine();
+      }
+      sc.close();
+    } catch (FileNotFoundException e) {
+      System.out.println("Wrong file or command written badly.");
+      e.printStackTrace();
     }
+    for (char c : lex.toCharArray()) {
+      lexArrayList.add(c);
+    }
+    return lexArrayList;
+  }
 
-    // FILE HANDLING SECTION
-    public static ArrayList<Character> readFile(String[] args){
-      String lex = "";
-      ArrayList<Character> lexArrayList = new ArrayList<>();
-      try {
-        File file = new File(args[0]);
-        Scanner sc = new Scanner(file);
-        while (sc.hasNextLine()) {
-          lex = lex + sc.nextLine();
+  // CODE GEN SECTION
+
+  public static void codeGen(FunctionNode main) {
+    System.out.println("\nCode Gen");
+    System.out.println("_main:");
+    ArrayList<LineNode> lineNodes = main.getLineNodes();
+    for (LineNode lineNode : lineNodes) {
+      ArrayList<Node> nodes = lineNode.getNodes();
+      for (int i = nodes.size()-1; i >= 0; i--) {
+        Node node = nodes.get(i);
+        Token token = node.getToken();
+        if (token.getTokenType() == Token.TokenType.NUMBER) {
+          System.out.println("\tmovl\t%" + token.getValue() + ", %eax");
         }
-        sc.close();
-      } catch (FileNotFoundException e) {
-        System.out.println("Wrong file or command written badly.");
-        e.printStackTrace();
+        if (token.getTokenType() == Token.TokenType.RETURN) {
+          System.out.println("\tret");
+        }
       }
-      for (char c : lex.toCharArray()) {
-        lexArrayList.add(c);
-      }
-      return lexArrayList;
     }
+  }
 }
 
