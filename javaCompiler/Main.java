@@ -1,8 +1,3 @@
-/*
- * Error handling for return if there is no valid return arg
- *
- */
-
 package javaCompiler;
 
 import java.io.File;
@@ -69,7 +64,7 @@ public class Main{
         do {
           s = s + lex.get(0).charValue();
           lex.remove(0);
-        } while (isAlpha(lex.get(0).charValue()));
+        } while (isAlphaNum(lex.get(0).charValue()));
         tokens.add(new Token(Token.TokenType.NUMBER, s));
       } else {
         lex.remove(0);

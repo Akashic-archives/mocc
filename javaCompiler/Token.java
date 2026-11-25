@@ -59,7 +59,6 @@ public class Token{
     this.tokenType = tokenType;
     this.value = value;
   }
-  
   public Token(TokenType tokenType) {
     this.tokenType = tokenType;
     this.value = "";
