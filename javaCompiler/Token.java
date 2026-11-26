@@ -45,7 +45,10 @@ public class Token{
     UNSIGNED,
     VOID,
     VOLATILE,
-    WHILE
+    WHILE,
+    MINUS, //ADDED FROM NORA SECOND WEEK
+    BITWISE_COMPLEMENT,
+    LOGICAL_NEGATION
   }
 
   public TokenType getTokenType() {
@@ -96,7 +99,10 @@ public class Token{
       token.getTokenType() == Token.TokenType.UNSIGNED ||
       token.getTokenType() == Token.TokenType.VOID ||
       token.getTokenType() == Token.TokenType.VOLATILE ||
-      token.getTokenType() == Token.TokenType.WHILE;
+      token.getTokenType() == Token.TokenType.WHILE ||
+      token.getTokenType() == Token.TokenType.MINUS ||
+      token.getTokenType() == Token.TokenType.BITWISE_COMPLEMENT ||
+      token.getTokenType() == Token.TokenType.LOGICAL_NEGATION;
   }
 }
 

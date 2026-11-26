@@ -157,12 +157,19 @@ public class Main{
       return Token.TokenType.LEFT_PARENTHESIS;
     } else if (ch == ')') {
       return Token.TokenType.RIGHT_PARENTHESIS;
+    } else if (ch == '-') {
+      return Token.TokenType.MINUS;
+    } else if (ch == '~') {
+      return Token.TokenType.BITWISE_COMPLEMENT;
+    } else if (ch == '!') {
+      return Token.TokenType.LOGICAL_NEGATION;
     }
     return Token.TokenType.SEMICOLON;
   }
 
   public static boolean isBaseToken(char ch) {
-    return (ch == ';' || ch == '{' || ch == '}' || ch == '(' || ch == ')');
+    return (ch == ';' || ch == '{' || ch == '}' || ch == '(' || ch == ')'
+        || ch == '-' || ch == '~' || ch == '!');
   }
 
   public static boolean isKeywordToken(String s) {
@@ -193,10 +200,13 @@ public class Main{
   public static FunctionNode parser(ArrayList<Token> tokens) {
     ArrayList<FunctionNode> functions = new ArrayList<>();
     FunctionNode main = new FunctionNode(tokens.get(1)); // TODO: search for the main and put it here, for now its manually the second token and add the args and place
-      
+    
+    int index = 5;
     LineNode lineNode = new LineNode();
-    lineNode.setNextNode(new Node(tokens.get(5)));
-    lineNode.setNextNode(new Node(tokens.get(6)));
+    while (tokens.get(index).getTokenType() != Token.TokenType.SEMICOLON) {
+      lineNode.setNextNode(new Node(tokens.get(index)));
+      index += 1;
+    }
     // l'idee c'est de prendre central-code et de le transformer en lignes avec les ;
 
     // function = return name args firstToken lastToken
@@ -309,6 +319,17 @@ public class Main{
           genCode = genCode + "\n" + "\tmovl\t%eax, %edi";
           genCode = genCode + "\n" + "\tmovl\t$60, %eax";
           genCode = genCode + "\n" + "\tsyscall";
+        }
+        if (token.getTokenType() == Token.TokenType.MINUS) {
+          genCode = genCode + "\n" + "\tneg\t%eax";
+        }
+        if (token.getTokenType() == Token.TokenType.BITWISE_COMPLEMENT) {
+          genCode = genCode + "\n" + "\tnot\t%eax";
+        }
+        if (token.getTokenType() == Token.TokenType.LOGICAL_NEGATION) {
+          genCode = genCode + "\n" + "\tcmpl\t$0, %eax";
+          genCode = genCode + "\n" + "\tmovl\t$0, %eax";
+          genCode = genCode + "\n" + "\tsete\t%al";
         }
       }
     }

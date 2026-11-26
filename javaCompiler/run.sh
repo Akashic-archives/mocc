@@ -1,10 +1,14 @@
 #!/bin/bash
 
-javac -d . Main.java Token.java Node.java FunctionNode.java LineNode.java
+javac -d . Main.java Token.java Node.java FunctionNode.java LineNode.java &&
 
-java javaCompiler.Main main.c
+java javaCompiler.Main main.c &&
 
-as --64 -o a.o a.s
+as --64 -o a.o a.s &&
 
-ld -o a a.o
+ld -o a a.o &&
+
+./a
+
+echo $?
 
